@@ -176,7 +176,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         return !(mMaxLabels == -1 || getMaxLabels() > getLabelsCounter());
     }
 
-    private int getLabelsCounter() {
+    public int getLabelsCounter() {
         return labelsCounter;
     }
 
@@ -272,19 +272,19 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         return false;
     }
 
-    private int getMaxLabels() {
+    public int getMaxLabels() {
         return mMaxLabels;
     }
 
-    private void setMaxLabels(int maxLabels) {
+    public void setMaxLabels(int maxLabels) {
         this.mMaxLabels = maxLabels;
     }
 
-    private boolean isShowCross() {
+    public boolean isShowCross() {
         return mShowCross;
     }
 
-    private void setShowCross(boolean showCross) {
+    public void setShowCross(boolean showCross) {
         this.mShowCross = showCross;
     }
 
@@ -296,11 +296,11 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         return mLabelsClickables;
     }
 
-    private void setLabelsClickables(boolean labelsClickables) {
+    public void setLabelsClickables(boolean labelsClickables) {
         this.mLabelsClickables = labelsClickables;
     }
 
-    private void setTextSize(int textSize) {
+    public void setTextSize(int textSize) {
         int newSize;
         try {
             newSize = (int) getResources().getDimension(textSize);
@@ -314,7 +314,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         return mTextColor;
     }
 
-    private void setTextColor(int textColor) {
+    public void setTextColor(int textColor) {
         int newColor;
         try {
             newColor = getResources().getColor(textColor);
@@ -344,7 +344,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         return mIconCross;
     }
 
-    private void setIconCross(int iconCross) {
+    public void setIconCross(int iconCross) {
         this.mIconCross = iconCross;
     }
 

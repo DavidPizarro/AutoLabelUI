@@ -43,7 +43,7 @@ public class RecyclerViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.recyclerview_fragment, container, false);
         findViews(view);
         setListeners();
-        setRecyclerView(view);
+        setRecyclerView();
         return view;
     }
 
@@ -61,7 +61,7 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
 
-    private void itemListClicked(View v, int position) {
+    private void itemListClicked(int position) {
         Person person = mPersonList.get(position);
         boolean isSelected = person.isSelected();
         boolean success;
@@ -103,6 +103,7 @@ public class RecyclerViewFragment extends Fragment {
                 Toast.makeText(getActivity(), ((Label) v).getText() , Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void findViews(View view) {
@@ -110,7 +111,7 @@ public class RecyclerViewFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
     }
 
-    private void setRecyclerView(View view) {
+    private void setRecyclerView() {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(llm);
@@ -134,7 +135,7 @@ public class RecyclerViewFragment extends Fragment {
 
             @Override
             public void onItemClick(View v, int position) {
-                itemListClicked(v, position);
+                itemListClicked(position);
             }
         });
     }
