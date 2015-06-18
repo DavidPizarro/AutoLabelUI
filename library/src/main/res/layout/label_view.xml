@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/llLabel"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Label">
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        style="@style/LabelTextView"/>
+
+    <ImageView
+        android:id="@+id/ivCross"
+        android:layout_width="@dimen/icon_cross"
+        android:layout_height="@dimen/icon_cross"
+        android:contentDescription="@string/cross"
+        style="@style/CrossImageView"/>
+
+</LinearLayout>
+

@@ -25,3 +25,17 @@ proguard/
 
 # Log Files
 *.log
+
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+autolayoutui.iml
+.idea/.name
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+app/app.iml
+library/library.iml

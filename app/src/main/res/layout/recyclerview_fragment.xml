@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:autolabel="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context=".MainActivity"
+                android:animateLayoutChanges="true">
+
+    <com.dpizarro.autolabeluilibrary.AutoLabelUI
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_view"
+        android:layout_marginBottom="10dp"
+        autolabel:max_labels="10"
+        autolabel:show_cross="true"
+        autolabel:text_color="@android:color/white"
+        autolabel:text_size="@dimen/label_title_size"
+        autolabel:icon_cross="@drawable/cross"
+        autolabel:background_color="@color/default_background_label"
+        autolabel:label_clickable="true"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView"/>
+
+</LinearLayout>

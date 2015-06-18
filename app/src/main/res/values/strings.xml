@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AutolabelUI</string>
+    <string name="add_label">Add label</string>
+    <string name="remove_label">Remove label</string>
+    <string name="label_to_add">Label to add</string>
+    <string name="label_to_remove">Label to remove</string>
+    <string name="simple_example">Simple example</string>
+    <string name="list_example">List example</string>
+</resources>

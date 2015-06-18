@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="names">
+        <item>David Pizarro</item>
+        <item>Manuel García Varés</item>
+        <item>Eduardo Centeno</item>
+        <item>Tylos</item>
+        <item>Elisa Pastor</item>
+        <item>Lurecas</item>
+        <item>Carlos Romero</item>
+        <item>JAMM</item>
+        <item>Juan Carlos Domínguez</item>
+        <item>Pablo Domínguez</item>
+    </array>
+    <array name="ages">
+        <item>26 years old</item>
+        <item>32 years old</item>
+        <item>28 years old</item>
+        <item>26 years old</item>
+        <item>33 years old</item>
+        <item>26 years old</item>
+        <item>41 years old</item>
+        <item>∞ years old</item>
+        <item>26 years old</item>
+        <item>26 years old</item>
+    </array>
+    <string-array name="photos">
+        <item>@drawable/pizarro</item>
+        <item>@drawable/manu</item>
+        <item>@drawable/edu</item>
+        <item>@drawable/tylos</item>
+        <item>@drawable/elisa</item>
+        <item>@drawable/lurecas</item>
+        <item>@drawable/romero</item>
+        <item>@drawable/jamm</item>
+        <item>@drawable/juanqui</item>
+        <item>@drawable/pablo</item>
+    </string-array>
+</resources>
