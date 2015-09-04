@@ -1,4 +1,4 @@
-# AutoLabelUI
+# AutoLabelUI [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AutoLabelUI-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2436) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidpizarro/autolabelui/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.davidpizarro/autolabelui)
 
 Android library to place labels next to another. If there is not enough space for the next label, it will be added in a new line.
 
