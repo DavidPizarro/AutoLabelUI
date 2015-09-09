@@ -34,7 +34,7 @@ Usage
 
 To add the AutoLabelUI to your layout, add this to your xml
 ```xml
-<com.dpizarro.autolabeluilibrary.AutoLabelUI
+<com.dpizarro.autolabel.library.AutoLabelUI
         android:id="@+id/label_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -43,7 +43,7 @@ To add the AutoLabelUI to your layout, add this to your xml
 You can add custom attributes in your xml to customize: drawables, colors, counters, background, behaviors...
 ```xml
 
-<com.dpizarro.autolabeluilibrary.AutoLabelUI
+<com.dpizarro.autolabel.library.AutoLabelUI
         android:id="@+id/label_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
