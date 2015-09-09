@@ -1,4 +1,4 @@
-package com.dpizarro.autolabelui;
+package com.dpizarro.libraries.autolabelui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.dpizarro.autolabelui;
+package com.dpizarro.libraries.autolabelui;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;

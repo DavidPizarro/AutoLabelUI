@@ -1,4 +1,4 @@
-package com.dpizarro.autolabeluilibrary;
+package com.dpizarro.autolabel.library;
 
 import android.content.Context;
 import android.util.AttributeSet;

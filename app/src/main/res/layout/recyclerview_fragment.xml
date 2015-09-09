@@ -11,7 +11,7 @@
                 tools:context=".MainActivity"
                 android:animateLayoutChanges="true">
 
-    <com.dpizarro.autolabeluilibrary.AutoLabelUI
+    <com.dpizarro.autolabel.library.AutoLabelUI
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/label_view"

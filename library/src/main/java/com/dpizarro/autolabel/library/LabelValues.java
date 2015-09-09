@@ -1,4 +1,4 @@
-package com.dpizarro.autolabeluilibrary;
+package com.dpizarro.autolabel.library;
 
 import android.os.Parcel;
 import android.os.Parcelable;

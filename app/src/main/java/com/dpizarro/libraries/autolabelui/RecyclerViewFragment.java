@@ -1,7 +1,7 @@
-package com.dpizarro.autolabelui;
+package com.dpizarro.libraries.autolabelui;
 
-import com.dpizarro.autolabeluilibrary.AutoLabelUI;
-import com.dpizarro.autolabeluilibrary.Label;
+import com.dpizarro.autolabel.library.AutoLabelUI;
+import com.dpizarro.autolabel.library.Label;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
