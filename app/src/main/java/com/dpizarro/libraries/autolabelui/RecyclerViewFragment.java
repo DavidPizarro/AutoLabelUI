@@ -109,6 +109,8 @@ public class RecyclerViewFragment extends Fragment {
     private void findViews(View view) {
         mAutoLabel = (AutoLabelUI) view.findViewById(R.id.label_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+
+        mAutoLabel.setBackgroundResource(R.drawable.round_corner_background);
     }
 
     private void setRecyclerView() {

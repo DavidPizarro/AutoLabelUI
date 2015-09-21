@@ -37,21 +37,23 @@ public class Label extends LinearLayout {
     }
 
     public Label(Context context, int textSize, int iconCross,
-            boolean showCross, int textColor, int backgroundColor, boolean labelsClickables) {
+            boolean showCross, int textColor, int backgroundResource, boolean labelsClickables, int padding) {
         super(context);
         init(context, textSize, iconCross, showCross, textColor,
-                backgroundColor, labelsClickables);
+            backgroundResource, labelsClickables, padding);
     }
 
     private void init(final Context context, int textSize, int iconCross,
-            boolean showCross, int textColor, int backgroundColor, boolean labelsClickables) {
+            boolean showCross, int textColor, int backgroundResource, boolean labelsClickables, int padding) {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.label_view, this, true);
 
         LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.llLabel);
-        linearLayout.setBackgroundColor(backgroundColor);
+        linearLayout.setBackgroundResource(backgroundResource);
+        linearLayout.setPadding(padding, padding, padding, padding);
+
         if(labelsClickables){
             linearLayout.setClickable(true);
             linearLayout.setOnClickListener(new OnClickListener() {
