@@ -32,8 +32,9 @@ public class AutoLabelUISettings implements Parcelable {
     private int mIconCross;
     private int mTextColor;
     private int mTextSize;
-    private int mBackgroundColor;
+    private int mBackgroundResource;
     private boolean mLabelsClickables;
+    private int mLabelPadding;
 
     private AutoLabelUISettings(Builder builder) {
         setMaxLabels(builder.bMaxLabels);
@@ -41,8 +42,9 @@ public class AutoLabelUISettings implements Parcelable {
         setIconCross(builder.bIconCross);
         setTextColor(builder.bTextColor);
         setTextSize(builder.bTextSize);
-        setBackgroundColor(builder.bBackgroundColor);
+        setBackgroundResource(builder.bBackgroundResource);
         setLabelsClickables(builder.bLabelsClickables);
+        setLabelPadding(builder.bLabelPadding);
     }
 
     public int getMaxLabels() {
@@ -85,12 +87,12 @@ public class AutoLabelUISettings implements Parcelable {
         mTextSize = textSize;
     }
 
-    public int getBackgroundColor() {
-        return mBackgroundColor;
+    public int getBackgroundResource() {
+        return mBackgroundResource;
     }
 
-    private void setBackgroundColor(int backgroundColor) {
-        mBackgroundColor = backgroundColor;
+    private void setBackgroundResource(int backgroundResource) {
+        mBackgroundResource = backgroundResource;
     }
 
     public boolean isLabelsClickables() {
@@ -101,6 +103,13 @@ public class AutoLabelUISettings implements Parcelable {
         mLabelsClickables = labelsClickables;
     }
 
+    public int getLabelPadding(){
+        return mLabelPadding;
+    }
+
+    private void setLabelPadding(int padding){
+        mLabelPadding = padding;
+    }
 
     public static final class Builder {
 
@@ -109,8 +118,9 @@ public class AutoLabelUISettings implements Parcelable {
         private int bIconCross              = DEFAULT_ICON_CROSS;
         private int bTextColor              = android.R.color.white;
         private int bTextSize               = R.dimen.label_title_size;
-        private int bBackgroundColor        = R.color.default_background_label;
+        private int bBackgroundResource     = R.color.default_background_label;
         private boolean bLabelsClickables   = DEFAULT_LABELS_CLICKABLES;
+        private int bLabelPadding           = R.dimen.padding_label_view;
 
         public Builder() {
         }
@@ -121,8 +131,9 @@ public class AutoLabelUISettings implements Parcelable {
             this.bIconCross = copy.mIconCross;
             this.bTextColor = copy.mTextColor;
             this.bTextSize = copy.mTextSize;
-            this.bBackgroundColor = copy.mBackgroundColor;
+            this.bBackgroundResource = copy.mBackgroundResource;
             this.bLabelsClickables = copy.mLabelsClickables;
+            this.bLabelPadding = copy.mLabelPadding;
         }
 
         public Builder withMaxLabels(int bMaxLabels) {
@@ -150,13 +161,18 @@ public class AutoLabelUISettings implements Parcelable {
             return this;
         }
 
-        public Builder withBackgroundColor(int backgroundColor) {
-            this.bBackgroundColor = backgroundColor;
+        public Builder withBackgroundResource(int backgroundResource) {
+            this.bBackgroundResource = backgroundResource;
             return this;
         }
 
         public Builder withLabelsClickables(boolean labelsClickables) {
             this.bLabelsClickables = labelsClickables;
+            return this;
+        }
+
+        public Builder withLabelPadding(int padding){
+            this.bLabelPadding = padding;
             return this;
         }
 
@@ -177,8 +193,9 @@ public class AutoLabelUISettings implements Parcelable {
         dest.writeInt(this.mIconCross);
         dest.writeInt(this.mTextColor);
         dest.writeInt(this.mTextSize);
-        dest.writeInt(this.mBackgroundColor);
+        dest.writeInt(this.mBackgroundResource);
         dest.writeByte(mLabelsClickables ? (byte) 1 : (byte) 0);
+        dest.writeInt(mLabelPadding);
     }
 
     private AutoLabelUISettings(Parcel in) {
@@ -187,8 +204,9 @@ public class AutoLabelUISettings implements Parcelable {
         this.mIconCross = in.readInt();
         this.mTextColor = in.readInt();
         this.mTextSize = in.readInt();
-        this.mBackgroundColor = in.readInt();
+        this.mBackgroundResource = in.readInt();
         this.mLabelsClickables = in.readByte() != 0;
+        this.mLabelPadding = in.readInt();
     }
 
     public static final Creator<AutoLabelUISettings> CREATOR

@@ -47,13 +47,14 @@ public class SimpleFragment extends Fragment {
     private void setAutoLabelUISettings() {
         AutoLabelUISettings autoLabelUISettings =
                 new AutoLabelUISettings.Builder()
-                        .withBackgroundColor(R.color.default_background_label)
+                        .withBackgroundResource(R.color.default_background_label)
                         .withIconCross(R.drawable.cross)
                         .withMaxLabels(6)
                         .withShowCross(true)
                         .withLabelsClickables(true)
                         .withTextColor(android.R.color.white)
                         .withTextSize(R.dimen.label_title_size)
+                        .withLabelPadding(10)
                         .build();
 
         mAutoLabel.setSettings(autoLabelUISettings);

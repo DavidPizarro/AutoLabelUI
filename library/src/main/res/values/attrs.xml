@@ -7,8 +7,9 @@
         <attr name="icon_cross" format="reference" />
         <attr name="text_color" format="color"/>
         <attr name="text_size" format="dimension"/>
-        <attr name="background_color" format="color"/>
+        <attr name="label_background_res" format="reference"/>
         <attr name="label_clickable" format="boolean" />
+        <attr name="label_padding" format="dimension"/>
     </declare-styleable>
 
 </resources>

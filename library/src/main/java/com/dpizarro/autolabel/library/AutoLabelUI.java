@@ -6,6 +6,7 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -41,12 +42,13 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     private final Context mContext;
     private int mTextSize;
     private int mTextColor;
-    private int mBackgroundColor;
+    private int mBackgroundResource;
     private int mIconCross;
     private AutoLabelUISettings mAutoLabelUISettings;
     private int mMaxLabels = AutoLabelUISettings.DEFAULT_MAX_LABELS;
     private boolean mShowCross = AutoLabelUISettings.DEFAULT_SHOW_CROSS;
     private boolean mLabelsClickables = AutoLabelUISettings.DEFAULT_LABELS_CLICKABLES;
+    private int mLabelPadding;
 
     private OnRemoveLabelListener listenerOnRemoveLabel;
     private OnLabelsCompletedListener listenerOnLabelsCompleted;
@@ -91,8 +93,8 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
                         getResources().getDimensionPixelSize(R.dimen.label_title_size));
                 mTextColor = typedArray.getColor(R.styleable.LabelsView_text_color,
                         getResources().getColor(android.R.color.white));
-                mBackgroundColor = typedArray.getColor(R.styleable.LabelsView_background_color,
-                        getResources().getColor(R.color.default_background_label));
+                mBackgroundResource = typedArray.getResourceId(R.styleable.LabelsView_label_background_res,
+                        R.color.default_background_label);
                 mMaxLabels = typedArray.getInteger(R.styleable.LabelsView_max_labels,
                         AutoLabelUISettings.DEFAULT_MAX_LABELS);
                 mShowCross = typedArray.getBoolean(R.styleable.LabelsView_show_cross,
@@ -101,6 +103,8 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
                         AutoLabelUISettings.DEFAULT_ICON_CROSS);
                 mLabelsClickables = typedArray.getBoolean(R.styleable.LabelsView_label_clickable,
                         AutoLabelUISettings.DEFAULT_LABELS_CLICKABLES);
+                mLabelPadding = typedArray.getDimensionPixelSize(R.styleable.LabelsView_label_padding,
+                        getResources().getDimensionPixelSize(R.dimen.padding_label_view));
 
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Error while creating the view AutoLabelUI: ", e);
@@ -120,7 +124,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     public boolean addLabel(String textLabel, int position) {
         if (!checkLabelsCompleted()) {
             Label label = new Label(getContext(), mTextSize, mIconCross, mShowCross,
-                    mTextColor, mBackgroundColor, mLabelsClickables);
+                    mTextColor, mBackgroundResource, mLabelsClickables, mLabelPadding);
             label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             label.setText(textLabel);
@@ -151,7 +155,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     public boolean addLabel(String textLabel) {
         if (!checkLabelsCompleted()) {
             Label label = new Label(getContext(), mTextSize, mIconCross, mShowCross,
-                    mTextColor, mBackgroundColor, mLabelsClickables);
+                    mTextColor, mBackgroundResource, mLabelsClickables, mLabelPadding);
             label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             label.setText(textLabel);
@@ -274,6 +278,29 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         return false;
     }
 
+    public void clear(){
+        removeAllViews();
+
+        labelsCounter = EMPTY;
+        if (listenerOnLabelsEmpty != null) {
+            listenerOnLabelsEmpty.onLabelsEmpty();
+        }
+
+        requestLayout();
+    }
+
+    public Label getLabel(int position){
+        return (Label) getChildAt(position);
+    }
+
+    public List<Label> getLabels(){
+        ArrayList<Label> labels = new ArrayList<>();
+        for (int i = 0;i < getChildCount();i++){
+            labels.add(getLabel(i));
+        }
+        return labels;
+    }
+
     public int getMaxLabels() {
         return mMaxLabels;
     }
@@ -302,6 +329,16 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         this.mLabelsClickables = labelsClickables;
     }
 
+    public void setLabelPadding(int padding){
+        int newPadding;
+        try{
+            newPadding = (int) getResources().getDimension(padding);
+        }catch (Resources.NotFoundException e){
+            newPadding = padding;
+        }
+        this.mLabelPadding = newPadding;
+    }
+
     public void setTextSize(int textSize) {
         int newSize;
         try {
@@ -326,20 +363,12 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         this.mTextColor = newColor;
     }
 
-    public int getBackgroundColor() {
-        return mBackgroundColor;
+    public int getBackgroundResource() {
+        return mBackgroundResource;
     }
 
-    @Override
-    public void setBackgroundColor(int backgroundColor) {
-        int newColor;
-        try {
-            newColor = getResources().getColor(backgroundColor);
-        } catch (Resources.NotFoundException e) {
-            newColor = backgroundColor;
-        }
-
-        this.mBackgroundColor = newColor;
+    public void setBackgroundResource(int backgroundResource){
+        this.mBackgroundResource = backgroundResource;
     }
 
     public int getIconCross() {
@@ -395,11 +424,12 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         mAutoLabelUISettings = autoLabelUISettings;
         setMaxLabels(autoLabelUISettings.getMaxLabels());
         setShowCross(autoLabelUISettings.isShowCross());
-        setBackgroundColor(autoLabelUISettings.getBackgroundColor());
+        setBackgroundColor(autoLabelUISettings.getBackgroundResource());
         setTextColor(autoLabelUISettings.getTextColor());
         setTextSize(autoLabelUISettings.getTextSize());
         setIconCross(autoLabelUISettings.getIconCross());
         setLabelsClickables(autoLabelUISettings.isLabelsClickables());
+        setLabelPadding(autoLabelUISettings.getLabelPadding());
     }
 
     /**
