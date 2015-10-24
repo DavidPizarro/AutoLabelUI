@@ -52,7 +52,7 @@ You can add custom attributes in your xml to customize: drawables, colors, count
         autolabel:text_color="@android:color/white"
         autolabel:text_size="@dimen/label_title_size"
         autolabel:icon_cross="@drawable/cross"
-        autolabel:background_color="@color/default_background_label"
+        autolabel:background_res="@color/default_background_label"
         autolabel:label_clickable="true"/>
         
 ```
@@ -67,7 +67,7 @@ AutoLabelUI mAutoLabel = (AutoLabelUI) view.findViewById(R.id.label_view);
 AutoLabelUISettings autoLabelUISettings = new AutoLabelUISettings.Builder()
                                                                  .withMaxLabels(5)
                                                                  .withIconCross(R.drawable.cross)
-                                                                 .withBackgroundColor(android.R.color.holo_blue_bright)
+                                                                 .withBackgroundResource(android.R.color.holo_blue_bright)
                                                                  .withLabelsClickables(false)
                                                                  .withShowCross(true)
                                                                  .withTextColor(android.R.color.holo_red_dark)
@@ -79,13 +79,24 @@ mAutoLabel.setSettings(autoLabelUISettings);
 
 You can set/get values programatically:
 ```java
-mAutoLabel.getBackgroundColor();
+mAutoLabel.getBackgroundResource();
 mAutoLabel.getTextColor();
 mAutoLabel.getTextSize();
 mAutoLabel.isLabelsClickables();
 mAutoLabel.setTextColor(android.R.color.holo_red_dark);
 mAutoLabel.setMaxLabels(5);
 ...
+```
+
+You can get Label using:
+```java
+Label label = mAutoLabel.getLabel(1);
+List<Label> labels = mAutoLabel.getLabels();
+```
+
+or remove them all:
+```java
+mAutoLabel.clear();
 ```
 
 To know when you have reached the limit of Labels to add, you will need to implement the `onLabelsCompleted` interface:

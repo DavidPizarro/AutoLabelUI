@@ -119,7 +119,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
      * Method to add a Label if is possible.
      *
      * @param textLabel is the text of the label added.
-     * @param position  is the position of the label using a list.
+     * @param position  is the position of the label.
      */
     public boolean addLabel(String textLabel, int position) {
         if (!checkLabelsCompleted()) {
@@ -128,11 +128,11 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
             label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             label.setText(textLabel);
-            label.setTag(position);
+            label.setTag(textLabel);
             label.setOnClickCrossListener(this);
             label.setOnLabelClickListener(this);
 
-            addView(label);
+            addView(label, position);
             increaseLabelsCounter();
 
             setLayoutTransition(new LayoutTransition());
@@ -242,7 +242,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
      * @param position of the item to remove.
      */
     public boolean removeLabel(int position) {
-        Label view = (Label) findViewWithTag(position);
+        Label view = (Label) getChildAt(position);
         if (view != null) {
             removeView(view);
             decreaseLabelsCounter();
@@ -424,7 +424,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         mAutoLabelUISettings = autoLabelUISettings;
         setMaxLabels(autoLabelUISettings.getMaxLabels());
         setShowCross(autoLabelUISettings.isShowCross());
-        setBackgroundColor(autoLabelUISettings.getBackgroundResource());
+        setBackgroundResource(autoLabelUISettings.getBackgroundResource());
         setTextColor(autoLabelUISettings.getTextColor());
         setTextSize(autoLabelUISettings.getTextSize());
         setIconCross(autoLabelUISettings.getIconCross());
