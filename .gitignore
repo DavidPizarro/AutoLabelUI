@@ -39,3 +39,5 @@ autolayoutui.iml
 .idea/runConfigurations.xml
 app/app.iml
 library/library.iml
+.idea/compiler.xml
+.idea/vcs.xml
