@@ -54,7 +54,7 @@ public class SimpleFragment extends Fragment {
                         .withLabelsClickables(true)
                         .withTextColor(android.R.color.white)
                         .withTextSize(R.dimen.label_title_size)
-                        .withLabelPadding(10)
+                        .withLabelPadding(30)
                         .build();
 
         mAutoLabel.setSettings(autoLabelUISettings);

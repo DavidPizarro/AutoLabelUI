@@ -117,7 +117,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     /**
      * Method to add a Label if is possible.
      *
-     * @param textLabel is the text of the label added.
+     * @param textLabel is the text of the label added using a LIST.
      * @param position  is the position of the label.
      */
     public boolean addLabel(String textLabel, int position) {
@@ -127,11 +127,11 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
             label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
             label.setText(textLabel);
-            label.setTag(textLabel);
+            label.setTag(position);
             label.setOnClickCrossListener(this);
             label.setOnLabelClickListener(this);
 
-            addView(label, position);
+            addView(label);
             increaseLabelsCounter();
 
             setLayoutTransition(new LayoutTransition());
@@ -238,10 +238,10 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     /**
      * Method to remove a label using a list.
      *
-     * @param position of the item to remove.
+     * @param labelToRemove the text of the {@link Label} to remove.
      */
-    public boolean removeLabel(int position) {
-        Label view = (Label) getChildAt(position);
+    public boolean removeLabel(String labelToRemove) {
+        Label view = (Label) findViewWithTag(labelToRemove);
         if (view != null) {
             removeView(view);
             decreaseLabelsCounter();
@@ -257,12 +257,12 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     }
 
     /**
-     * Method to remove a label using a list.
+     * Method to remove a label using a LIST.
      *
-     * @param labelToRemove the text of the {@link Label} to remove.
+     * @param position of the item to remove.
      */
-    public boolean removeLabel(String labelToRemove) {
-        Label view = (Label) findViewWithTag(labelToRemove);
+    public boolean removeLabel(int position) {
+        Label view = (Label) findViewWithTag(position);
         if (view != null) {
             removeView(view);
             decreaseLabelsCounter();
@@ -482,14 +482,16 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
             List<LabelValues> labelsAdded = (List<LabelValues>) bundle
                     .getSerializable("labelsAdded");
 
-            for(int i=0; i<labelsAdded.size();i++){
-                LabelValues labelValues = labelsAdded.get(i);
+            if (labelsAdded != null) {
+                for(int i=0; i<labelsAdded.size();i++){
+                    LabelValues labelValues = labelsAdded.get(i);
 
-                if(labelValues.getKey() == -1){
-                    addLabel(labelValues.getValue());
-                }
-                else{
-                    addLabel(labelValues.getValue(), labelValues.getKey());
+                    if(labelValues.getKey() == -1){
+                        addLabel(labelValues.getValue());
+                    }
+                    else{
+                        addLabel(labelValues.getValue(), labelValues.getKey());
+                    }
                 }
             }
 
