@@ -1,6 +1,6 @@
 # AutoLabelUI 
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AutoLabelUI-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2436) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidpizarro/autolabelui/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.davidpizarro/autolabelui) [![Android Gems](http://www.android-gems.com/badge/DavidPizarro/AutoLabelUI.svg?branch=master)](http://www.android-gems.com/lib/DavidPizarro/AutoLabelUI)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AutoLabelUI-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2436) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidpizarro/autolabelui/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.davidpizarro/autolabelui)
 
 Android library to place labels next to another. If there is not enough space for the next label, it will be added in a new line.
 
@@ -21,7 +21,7 @@ Demo
 Including in Your Project
 =========================
 
-Last version is 1.0.0
+**Last version is 1.0.1**
 
 Just add the following statement in your build.gradle
 
@@ -52,7 +52,8 @@ You can add custom attributes in your xml to customize: drawables, colors, count
         autolabel:text_color="@android:color/white"
         autolabel:text_size="@dimen/label_title_size"
         autolabel:icon_cross="@drawable/cross"
-        autolabel:background_res="@color/default_background_label"
+        autolabel:label_background_res="@color/default_background_label"
+        autolabel:label_padding="@dimen/label_padding"
         autolabel:label_clickable="true"/>
         
 ```
@@ -67,11 +68,12 @@ AutoLabelUI mAutoLabel = (AutoLabelUI) view.findViewById(R.id.label_view);
 AutoLabelUISettings autoLabelUISettings = new AutoLabelUISettings.Builder()
                                                                  .withMaxLabels(5)
                                                                  .withIconCross(R.drawable.cross)
-                                                                 .withBackgroundResource(android.R.color.holo_blue_bright)
+                                                                 .withBackgroundResource(R.drawable.round_corner_background)
                                                                  .withLabelsClickables(false)
                                                                  .withShowCross(true)
                                                                  .withTextColor(android.R.color.holo_red_dark)
                                                                  .withTextSize(R.dimen.label_title_size)
+                                                                 .withLabelPadding(R.dimen.label_padding)
                                                                  .build();
 
 mAutoLabel.setSettings(autoLabelUISettings);
@@ -85,6 +87,7 @@ mAutoLabel.getTextSize();
 mAutoLabel.isLabelsClickables();
 mAutoLabel.setTextColor(android.R.color.holo_red_dark);
 mAutoLabel.setMaxLabels(5);
+mAutoLabel.setBackgroundResource(R.drawable.round_corner_background);
 ...
 ```
 
@@ -149,8 +152,14 @@ Contribution
 I'd like to improve this library with your help!
 If you've fixed a bug or have a feature you've added, just create a pull request. Issues can be reported on the github issue tracker.
 
+
+Who's using it
+=========================
+*Does your app use AutoLabelUI? If you want to be featured on this list drop me a line.*
+
+
 Author
--------
+=========================
 
 David Pizarro (dpizarro89@gmail.com)
 
