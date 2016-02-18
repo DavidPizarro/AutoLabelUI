@@ -48,9 +48,9 @@ public class Label extends LinearLayout {
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View view = inflater.inflate(R.layout.label_view, this, true);
+        final View labelView = inflater.inflate(R.layout.label_view, this, true);
 
-        LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.llLabel);
+        LinearLayout linearLayout = (LinearLayout) labelView.findViewById(R.id.llLabel);
         linearLayout.setBackgroundResource(backgroundResource);
         linearLayout.setPadding(padding, padding, padding, padding);
 
@@ -60,17 +60,17 @@ public class Label extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     if (listenerOnLabelClick != null) {
-                        listenerOnLabelClick.onClickLabel(view);
+                        listenerOnLabelClick.onClickLabel((Label) labelView);
                     }
                 }
             });
         }
 
-        mTextView = (TextView) view.findViewById(R.id.tvLabel);
+        mTextView = (TextView) labelView.findViewById(R.id.tvLabel);
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         mTextView.setTextColor(textColor);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.ivCross);
+        ImageView imageView = (ImageView) labelView.findViewById(R.id.ivCross);
 
         if (showCross) {
             imageView.setImageResource(iconCross);
@@ -78,7 +78,7 @@ public class Label extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     if (listenerOnCrossClick != null) {
-                        listenerOnCrossClick.onClickCross(view);
+                        listenerOnCrossClick.onClickCross((Label) labelView);
                     }
                 }
             });
@@ -113,7 +113,7 @@ public class Label extends LinearLayout {
         /**
          * Call when the cross icon is clicked.
          */
-        void onClickCross(View v);
+        void onClickCross(Label label);
     }
 
     /**
@@ -134,6 +134,6 @@ public class Label extends LinearLayout {
         /**
          * Call when the {@link Label} is clicked.
          */
-        void onClickLabel(View v);
+        void onClickLabel(Label label);
     }
 }

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.Serializable;
@@ -200,19 +199,19 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     /**
      * Method called when the cross icon is clicked.
      *
-     * @param view the {@link Label} object.
+     * @param label the {@link Label} object.
      */
     @Override
-    public void onClickCross(View view) {
-        removeView(view);
+    public void onClickCross(Label label) {
+        removeView(label);
         decreaseLabelsCounter();
 
         if (listenerOnRemoveLabel != null) {
-            if( view.getTag() instanceof Integer){
-                listenerOnRemoveLabel.onRemoveLabel(view, (Integer) view.getTag());
+            if( label.getTag() instanceof Integer){
+                listenerOnRemoveLabel.onRemoveLabel(label, (Integer) label.getTag());
             }
             else{
-                listenerOnRemoveLabel.onRemoveLabel(view, -1);
+                listenerOnRemoveLabel.onRemoveLabel(label, -1);
             }
         }
         if (getLabelsCounter() == EMPTY) {
@@ -226,12 +225,12 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     /**
      * Method called when the {@link Label} object is clicked.
      *
-     * @param v the {@link Label} object.
+     * @param label the {@link Label} object.
      */
     @Override
-    public void onClickLabel(View v) {
+    public void onClickLabel(Label label) {
         if (listenerOnLabelClick != null) {
-            listenerOnLabelClick.onClickLabel(v);
+            listenerOnLabelClick.onClickLabel(label);
         }
     }
 
@@ -241,9 +240,9 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
      * @param labelToRemove the text of the {@link Label} to remove.
      */
     public boolean removeLabel(String labelToRemove) {
-        Label view = (Label) findViewWithTag(labelToRemove);
-        if (view != null) {
-            removeView(view);
+        Label label = (Label) findViewWithTag(labelToRemove);
+        if (label != null) {
+            removeView(label);
             decreaseLabelsCounter();
             if (getLabelsCounter() == EMPTY) {
                 if (listenerOnLabelsEmpty != null) {
@@ -507,12 +506,12 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     public interface OnRemoveLabelListener {
 
         /**
-         * Callback when a label is removed.
+         * Callback when a {@link Label} is removed.
          *
-         * @param view has been removed.
+         * @param label has been removed.
          * @param position of the item to remove.
          */
-        void onRemoveLabel(View view, int position);
+        void onRemoveLabel(Label label, int position);
     }
 
     /**
@@ -548,6 +547,6 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         /**
          * Call when the {@link Label} is clicked.
          */
-        void onClickLabel(View v);
+        void onClickLabel(Label label);
     }
 }
