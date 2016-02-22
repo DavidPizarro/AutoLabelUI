@@ -7,22 +7,21 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by dpizarro
- */
 public class RecyclerViewFragment extends Fragment {
+
+    private final String KEY_INSTANCE_STATE_PEOPLE = "statePeople";
 
     private AutoLabelUI mAutoLabel;
     private List<Person> mPersonList;
@@ -51,9 +50,9 @@ public class RecyclerViewFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(savedInstanceState!=null){
-            List<Person> people = savedInstanceState.getParcelableArrayList("statePeople");
-            if(people != null){
+        if (savedInstanceState != null) {
+            List<Person> people = savedInstanceState.getParcelableArrayList(KEY_INSTANCE_STATE_PEOPLE);
+            if (people != null) {
                 mPersonList = people;
                 adapter.setPeople(people);
                 recyclerView.setAdapter(adapter);
@@ -79,34 +78,36 @@ public class RecyclerViewFragment extends Fragment {
         mAutoLabel.setOnLabelsCompletedListener(new AutoLabelUI.OnLabelsCompletedListener() {
             @Override
             public void onLabelsCompleted() {
-                Toast.makeText(getActivity(), "Completed!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(recyclerView, "Completed!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         mAutoLabel.setOnRemoveLabelListener(new AutoLabelUI.OnRemoveLabelListener() {
             @Override
-            public void onRemoveLabel(View view, int position) {
+            public void onRemoveLabel(Label removedLabel, int position) {
                 adapter.setItemSelected(position, false);
             }
+
         });
 
         mAutoLabel.setOnLabelsEmptyListener(new AutoLabelUI.OnLabelsEmptyListener() {
             @Override
             public void onLabelsEmpty() {
-                Toast.makeText(getActivity(), "EMPTY!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(recyclerView, "EMPTY!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         mAutoLabel.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
             @Override
-            public void onClickLabel(View v) {
-                Toast.makeText(getActivity(), ((Label) v).getText() , Toast.LENGTH_SHORT).show();
+            public void onClickLabel(Label labelClicked) {
+                Snackbar.make(recyclerView, labelClicked.getText(), Snackbar.LENGTH_SHORT).show();
             }
         });
 
     }
 
     private void findViews(View view) {
+
         mAutoLabel = (AutoLabelUI) view.findViewById(R.id.label_view);
         mAutoLabel.setBackgroundResource(R.drawable.round_corner_background);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -124,7 +125,7 @@ public class RecyclerViewFragment extends Fragment {
         List<String> ages = Arrays.asList(getResources().getStringArray(R.array.ages));
         TypedArray photos = getResources().obtainTypedArray(R.array.photos);
 
-        for(int i = 0; i<names.size(); i++){
+        for (int i = 0; i < names.size(); i++) {
             mPersonList.add(new Person(names.get(i), ages.get(i), photos.getResourceId(i, -1), false));
         }
 
@@ -145,7 +146,7 @@ public class RecyclerViewFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
 
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("statePeople",
+        outState.putParcelableArrayList(KEY_INSTANCE_STATE_PEOPLE,
                 (ArrayList<? extends Parcelable>) adapter.getPeople());
 
     }

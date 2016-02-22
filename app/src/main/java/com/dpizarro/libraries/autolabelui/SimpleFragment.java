@@ -6,21 +6,15 @@ import com.dpizarro.autolabel.library.Label;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-/**
- * Created by dpizarro
- */
 public class SimpleFragment extends Fragment {
-
-    private static final String LOG_TAG = SimpleFragment.class.getSimpleName();
 
     private AutoLabelUI mAutoLabel;
     private EditText etLabelAdd;
@@ -62,48 +56,53 @@ public class SimpleFragment extends Fragment {
 
     private void setListeners() {
         mAutoLabel.setOnLabelsCompletedListener(new AutoLabelUI.OnLabelsCompletedListener() {
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void onLabelsCompleted() {
-                Toast.makeText(getActivity(), "Completed!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), "Completed!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         mAutoLabel.setOnRemoveLabelListener(new AutoLabelUI.OnRemoveLabelListener() {
             @Override
-            public void onRemoveLabel(View view, int position) {
-                Log.d(LOG_TAG, "Label with text \" " + view.getTag() + "\" has been removed." );
+            public void onRemoveLabel(Label removedLabel, int position) {
+                Snackbar.make(removedLabel, "Label with text \" " + removedLabel.getTag() + "\" has been removed.", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         mAutoLabel.setOnLabelsEmptyListener(new AutoLabelUI.OnLabelsEmptyListener() {
+            @SuppressWarnings("ConstantConditions")
             @Override
             public void onLabelsEmpty() {
-                Toast.makeText(getActivity(), "EMPTY!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(getView(), "EMPTY!", Snackbar.LENGTH_SHORT).show();
             }
         });
 
         mAutoLabel.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
             @Override
-            public void onClickLabel(View v) {
-                Toast.makeText(getActivity(), ((Label) v).getText(), Toast.LENGTH_SHORT)
-                        .show();
+            public void onClickLabel(Label labelClicked) {
+                Snackbar.make(labelClicked, labelClicked.getText(), Snackbar.LENGTH_SHORT).show();
             }
         });
     }
 
     private void findViews(View view) {
         mAutoLabel = (AutoLabelUI) view.findViewById(R.id.label_view);
+        etLabelAdd = (EditText) view.findViewById(R.id.etLabel);
+        etLabelRemove = (EditText) view.findViewById(R.id.etLabelRemove);
+
         Button btAddLabel = (Button) view.findViewById(R.id.btAddLabel);
         btAddLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String textToAdd = etLabelAdd.getText().toString();
-                if(!textToAdd.isEmpty()){
+                if (!textToAdd.isEmpty()) {
                     boolean success = mAutoLabel.addLabel(textToAdd);
-                    if(success)
-                        Toast.makeText(getActivity(), "Label added", Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(getActivity(), "ERROR! Label not added", Toast.LENGTH_SHORT).show();
+                    if (success) {
+                        Snackbar.make(v, "Label added!", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(v, "ERROR! Label not added", Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -113,19 +112,16 @@ public class SimpleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String textToRemove = etLabelRemove.getText().toString();
-                if(!textToRemove.isEmpty()) {
+                if (!textToRemove.isEmpty()) {
                     boolean success = mAutoLabel.removeLabel(textToRemove);
 
-                    if(success)
-                        Toast.makeText(getActivity(), "Label removed", Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(getActivity(), "ERROR! Label not removed", Toast.LENGTH_SHORT).show();
+                    if (success) {
+                        Snackbar.make(v, "Label removed!", Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        Snackbar.make(v, "ERROR! Label not removed", Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
-
-        etLabelAdd = (EditText) view.findViewById(R.id.etLabel);
-        etLabelRemove = (EditText) view.findViewById(R.id.etLabelRemove);
     }
-
 }
