@@ -1,7 +1,5 @@
 package com.dpizarro.autolabel.library;
 
-import com.dpizarro.autolabeluilibrary.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -10,7 +8,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
-
+import com.dpizarro.autolabeluilibrary.R;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,6 +112,37 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
             }
         }
 
+    }
+
+    /**
+     * Method to add a Label with a custom Object tag.
+     *
+     * @param textlabel is the text of the label added using a LIST.
+     * @param tag is the tag used to retrieve the label for later use
+     */
+    public boolean addLabel(String textlabel, Object tag) {
+        if (!checkLabelsCompleted()) {
+            Label label = new Label(getContext(), mTextSize, mIconCross, mShowCross, mTextColor,
+                mBackgroundResource, mLabelsClickables, mLabelPadding);
+            label.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+            label.setText(textlabel);
+            label.setTag(tag);
+            label.setOnClickCrossListener(this);
+            label.setOnLabelClickListener(this);
+
+            increaseLabelsCounter();
+            addView(label);
+            requestLayout();
+
+            return true;
+        }
+
+        if (listenerOnLabelsCompleted != null) {
+            listenerOnLabelsCompleted.onLabelsCompleted();
+            ;
+        }
+        return false;
     }
 
     /**
@@ -230,6 +259,28 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
         if (listenerOnLabelClick != null) {
             listenerOnLabelClick.onClickLabel(label);
         }
+    }
+
+    /**
+     * Method to remove a label using a list
+     *
+     * @param tag the object used as a tag when creating the label. See {@link #addLabel(String,
+     * Object)} method
+     */
+    public boolean removeLabel(Object tag) {
+        Label label = (Label) findViewWithTag(tag);
+        if (label != null) {
+            removeView(label);
+            decreaseLabelsCounter();
+            if (getLabelsCounter() == EMPTY) {
+                if (listenerOnLabelsEmpty != null) {
+                    listenerOnLabelsEmpty.onLabelsEmpty();
+                }
+            }
+            requestLayout();
+            return true;
+        }
+        return false;
     }
 
     /**
